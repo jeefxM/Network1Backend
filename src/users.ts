@@ -10,38 +10,15 @@ const fetch = (...args) =>
 
 import path from "path";
 
-
-
-if (process.env.FIREBASE_CONFIG_BASE64) {
-  // Decode the base64 string and parse it as JSON
-  const firebaseConfig = JSON.parse(
-    Buffer.from(process.env.FIREBASE_CONFIG_BASE64, "base64").toString("ascii")
-  );
-
-  // Initialize the Firebase app with the config
-  
-} else {
-  // Handle the case where the environment variable is not set
-  console.error("FIREBASE_CONFIG_BASE64 environment variable not set");
-  // ...
-}
+const firebaseConfig = JSON.parse(
+  Buffer.from(process.env.FIREBASE_CONFIG_BASE64, "base64").toString("ascii")
+);
 
 admin.initializeApp({
   credential: admin.credential.cert(firebaseConfig),
   databaseURL: "https://adventure-ea7cd.firebaseio.com",
 });
 
-// admin.initializeApp({
-//   credential: admin.credential.cert(
-//     JSON.parse(
-//       //@ts-ignore
-//       Buffer.from(process.env.FIREBASE_CONFIG_BASE64, "base64").toString(
-//         "ascii"
-//       )
-//     )
-//   ),
-//   databaseURL: "https://adventure-ea7cd.firebaseio.com",
-// });
 
 const db = admin.firestore();
 const users = express.Router();
