@@ -3,7 +3,6 @@ import express from "express";
 //import firebase from "./firebase";
 import { v4 as uuid } from "uuid";
 //import {db, increment} from "./firebase";
-import * as admin from "firebase-admin";
 
 import * as admin from "firebase-admin";
 const fetch = (...args) =>
@@ -11,15 +10,17 @@ const fetch = (...args) =>
 
 import path from "path";
 
-const firebaseConfig = process.env.FIREBASE_CONFIG_BASE64
-  ? JSON.parse(Buffer.from(process.env.FIREBASE_CONFIG_BASE64, "base64").toString("ascii"))
-  : {};
-
-  admin.initializeApp({
-    credential: admin.credential.cert(firebaseConfig),
-    databaseURL: "https://adventure-ea7cd.firebaseio.com",
-  });  
-
+admin.initializeApp({
+  credential: admin.credential.cert(
+    JSON.parse(
+      //@ts-ignore
+      Buffer.from(process.env.FIREBASE_CONFIG_BASE64, "base64").toString(
+        "ascii"
+      )
+    )
+  ),
+  databaseURL: "https://adventure-ea7cd.firebaseio.com",
+});
 
 const db = admin.firestore();
 const users = express.Router();
