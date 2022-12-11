@@ -15,10 +15,10 @@ const firebaseConfig = process.env.FIREBASE_CONFIG_BASE64
   ? JSON.parse(Buffer.from(process.env.FIREBASE_CONFIG_BASE64, "base64").toString("ascii"))
   : {};
 
-admin.initializeApp({
-  credential: admin.credential.cert(firebaseConfig),
-  databaseURL: "https://adventure-ea7cd.firebaseio.com",
-});
+  admin.initializeApp({
+    credential: admin.credential.cert(firebaseConfig),
+    databaseURL: "https://adventure-ea7cd.firebaseio.com",
+  });  
 
 
 const db = admin.firestore();
