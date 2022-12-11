@@ -10,6 +10,8 @@ const fetch = (...args) =>
 
 import path from "path";
 
+
+
 if (process.env.FIREBASE_CONFIG_BASE64) {
   // Decode the base64 string and parse it as JSON
   const firebaseConfig = JSON.parse(
@@ -17,16 +19,17 @@ if (process.env.FIREBASE_CONFIG_BASE64) {
   );
 
   // Initialize the Firebase app with the config
-  admin.initializeApp({
-    credential: admin.credential.cert(firebaseConfig),
-    databaseURL: "https://adventure-ea7cd.firebaseio.com",
-  });
+  
 } else {
   // Handle the case where the environment variable is not set
   console.error("FIREBASE_CONFIG_BASE64 environment variable not set");
   // ...
 }
 
+admin.initializeApp({
+  credential: admin.credential.cert(firebaseConfig),
+  databaseURL: "https://adventure-ea7cd.firebaseio.com",
+});
 
 // admin.initializeApp({
 //   credential: admin.credential.cert(
