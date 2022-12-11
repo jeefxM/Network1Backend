@@ -3,6 +3,7 @@ import express from "express";
 //import firebase from "./firebase";
 import { v4 as uuid } from "uuid";
 //import {db, increment} from "./firebase";
+import * as admin from "firebase-admin";
 
 import * as admin from "firebase-admin";
 const fetch = (...args) =>
@@ -10,9 +11,9 @@ const fetch = (...args) =>
 
 import path from "path";
 
-const firebaseConfig = JSON.parse(
-  Buffer.from(process.env.FIREBASE_CONFIG_BASE64, "base64").toString("ascii")
-);
+const firebaseConfig = process.env.FIREBASE_CONFIG_BASE64
+  ? JSON.parse(Buffer.from(process.env.FIREBASE_CONFIG_BASE64, "base64").toString("ascii"))
+  : {};
 
 admin.initializeApp({
   credential: admin.credential.cert(firebaseConfig),
